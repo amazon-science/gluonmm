@@ -306,8 +306,7 @@ def build_compact_vidtr(cfg):
                                https://gluonmm.s3.amazonaws.com/pretrained/vit_inflate.pth to ./pretrained/vit_inflate.pth')
         inflate_model(model,
                       weights_dir=cfg.CONFIG.MODEL.INFLATE_PRETRAIN_DIR,
-                      temporal_size=cfg.CONFIG.MODEL.TEMP_LEN,
-                      merge_later=cfg.CONFIG.MODEL.MERGE_LATER)
+                      temporal_size=cfg.CONFIG.MODEL.TEMP_LEN)
 
     return model
 

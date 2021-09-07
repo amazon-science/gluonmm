@@ -3,9 +3,9 @@ https://github.com/facebookresearch/deit/main.py
 Copyright (c) 2015-present, Facebook, Inc.,
 Apache License, Version 2.0
 """
-import sys
-sys.path.extend(['/home/ubuntu/code/gluonmm'])
 import os
+import sys
+sys.path.append(os.getcwd())
 import argparse
 import datetime
 import time

@@ -1,6 +1,6 @@
 ## GluonMM
 
-GluonMM is a library of transformer models for computer vision and multi-modality research.
+GluonMM is a library of transformer models for computer vision and multi-modality research. It contains reference implementations of widely adopted baseline models and also research work from Amazon Research.
 
 
 ## Install

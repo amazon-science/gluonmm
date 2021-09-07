@@ -1,0 +1,82 @@
+# vidtr_s_8x8_patch16_224_k400
+
+DDP_CONFIG:
+  WORLD_SIZE: 1
+  WORLD_RANK: 0
+  GPU_WORLD_SIZE: 8
+  GPU_WORLD_RANK: 0
+  DIST_URL: 'tcp://172.31.0.32:23456'
+  WOLRD_URLS: [ '172.31.0.32']
+  AUTO_RANK_MATCH: True
+  DIST_BACKEND: 'nccl'
+  GPU: 0
+  DISTRIBUTED: True
+
+CONFIG:
+  TRAIN:
+    EPOCH_NUM: 50
+    BATCH_SIZE: 3
+    LR: 0.01
+    WEIGHT_DECAY: 1e-5
+    USE_WARMUP: False
+    OPTIMIZER:
+      NAME: 'sgd'
+      MOMENTUM: 0.9
+    LR_SCHEDULER:
+      NAME: 'step'
+      DECAY_EPOCHS: 30
+      LR_MILESTONE: [ 25, 40 ]
+      DECAY_RATE: 0.1
+
+  VAL:
+    BATCH_SIZE: 30
+    FREQ: 1
+
+  TEST:
+    BATCH_SIZE: 1
+    MULTI_VIEW_TEST: False
+
+  DATA:
+    TRAIN_ANNO_PATH: '/home/ubuntu/data/kinetics400/k400_train.txt'
+    VAL_ANNO_PATH: '/home/ubuntu/data/kinetics400/k400_val.txt'
+    TRAIN_DATA_PATH: '/home/ubuntu/data/kinetics400/train_256/'
+    VAL_DATA_PATH: '/home/ubuntu/data/kinetics400/val_256/'
+    NUM_CLASSES: 400
+    CLIP_LEN: 8
+    FRAME_RATE: 8
+    NUM_SEGMENT: 1
+    NUM_CROP: 1
+    TEST_NUM_SEGMENT: 10
+    TEST_NUM_CROP: 3
+    MULTIGRID: False
+    KEEP_ASPECT_RATIO: False
+    IMG_SIZE: 224
+    IMAGENET_DEFAULT_NORMALIZE: False
+
+  MODEL:
+    NAME: 'vidtr_s_8x8_patch16_224_k400'
+    D_MODEL: 768
+    NHEAD: 12
+    NUM_ENCODER_LAYERS: 12
+    DIM_FEEDFORWARD: 3072
+    PATCH_SIZE: (1, 16, 16)
+    NORMALIZE_BEFORE: True
+    USING_TEMP: True
+    TEMP_LEN: 8
+    INFLATE: True
+    INFLATE_PRETRAIN_DIR: "./pretrained/vit_inflate.pth"
+    PRETRAINED: True
+    PRETRAINED_PATH: "./pretrained/vidtr_s_8x8_patch16_224_k400.pth"
+    LOAD: True
+    LOAD_FC: True
+    MERGE_LATER: False
+    MERGE_INDEX: 6
+    DROPOUT: 0.1
+
+  LOG:
+    BASE_PATH: './logs/vidtr_s_8x8_patch16_224_k400'
+    LOG_DIR: 'tb_log'
+    SAVE_DIR: 'checkpoints'
+    EVAL_DIR: './logs/vidtr_s_8x8_patch16_224_k400/eval'
+    DISPLAY_FREQ: 20
+    SAVE_FREQ: 1

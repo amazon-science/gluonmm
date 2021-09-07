@@ -1,0 +1,77 @@
+# cait_xxs36_patch16_224_imagenet1k
+
+DDP_CONFIG:
+  WORLD_SIZE: 1
+  WORLD_RANK: 0
+  GPU_WORLD_SIZE: 8
+  GPU_WORLD_RANK: 0
+  DIST_URL: 'tcp://172.31.74.47:23456'
+  WOLRD_URLS: ['172.31.74.47']
+  AUTO_RANK_MATCH: True
+  DIST_BACKEND: 'nccl'
+  GPU: 0
+  DISTRIBUTED: True
+
+CONFIG:
+  TRAIN:
+    EPOCH_NUM: 400
+    BATCH_SIZE: 128
+    LR: 5e-4
+    MIN_LR: 1e-5
+    WEIGHT_DECAY: 0.05
+    USE_WARMUP: True
+    WARMUP_EPOCHS: 5
+    WARMUP_START_LR: 1e-6
+    LR_SCHEDULER:
+      NAME: 'cosine'
+      DECAY_EPOCHS: 30
+      DECAY_RATE: 0.1
+    OPTIMIZER:
+      NAME: adamw
+      EPS: 1e-8
+      BETAS: (0.9, 0.999)
+      MOMENTUM: 0.9
+
+  AUG:
+    COLOR_JITTER: 0.4
+    AUTO_AUGMENT: 'rand-m9-mstd0.5-inc1'
+    LABEL_SMOOTHING: 0.1
+    REPROB: 0.25
+    REMODE: 'pixel'
+    RECOUNT: 1
+    MIXUP: 0.8
+    CUTMIX: 1.0
+    CUTMIX_MINMAX: None
+    MIXUP_PROB: 1.0
+    MIXUP_SWITCH_PROB: 0.5
+    MIXUP_MODE: 'batch'
+    REPEATED_AUG: True
+
+  VAL:
+    BATCH_SIZE: 128
+    FREQ: 5
+
+  DATA:
+    TRAIN_DATA_PATH: '/home/ubuntu/data/imagenet/train/'
+    VAL_DATA_PATH:  '/home/ubuntu/data/imagenet/val/'
+    NUM_CLASSES: 1000
+    IMG_SIZE: 224
+    CROP_PCT: 1.0
+    TEST_NUM_CROP: 1
+    IMAGENET_DEFAULT_NORMALIZE: True
+    INTERPOLATION: 'bicubic'
+
+  MODEL:
+    NAME: 'cait_xxs36_patch16_224'
+    PATCH_SIZE: 16
+    PRETRAINED: True
+    DROP_RATE: 0.
+    DROP_PATH_RATE: 0.1
+
+  LOG:
+    BASE_PATH: './logs/cait_xxs36_patch16_224'
+    LOG_DIR: 'tb_log'
+    SAVE_DIR: 'checkpoints'
+    EVAL_DIR: './logs/cait_xxs36_patch16_224/eval'
+    DISPLAY_FREQ: 50
+    SAVE_FREQ: 5

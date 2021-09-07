@@ -1,5 +1,6 @@
+import os
 import sys
-sys.path.extend(['/home/ubuntu/code/gluonmm'])
+sys.path.append(os.getcwd())
 import argparse
 
 import torch

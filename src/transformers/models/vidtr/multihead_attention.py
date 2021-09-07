@@ -160,6 +160,7 @@ class MultiHeadSplitAttentionSpatioToken(nn.Module):
 
         return output, attn
 
+
 class MultiHeadSplitAttentionDualToken(nn.Module):
     ''' Multi-Head Attention module '''
 
@@ -307,6 +308,7 @@ class MultiHeadSequentialPoolAttentionVariableKSTDReverse(nn.Module):
         output = torch.cat((q_cls, output), dim=0)
 
         return output, attn, idx
+
 
 class MultiHeadSequentialPoolAttentionVariableKSTDSTDual(nn.Module):
     ''' Multi-Head Attention module '''
